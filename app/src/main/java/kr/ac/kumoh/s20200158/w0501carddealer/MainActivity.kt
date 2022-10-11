@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import kr.ac.kumoh.s20200158.w0501carddealer.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -13,9 +14,15 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         setContentView(binding.root)
 
-        getCardName(29) // 29 : heart 4번
-
-        binding.card1.setImageResource(R.drawable.c_10_of_diamonds)
+        binding.btnDeal.setOnClickListener{
+            val res = resources.getIdentifier(
+                getCardName(Random.nextInt(52)), // 29 : heart 4번
+                "drawable",
+                packageName
+            )
+            binding.card1.setImageResource(res)
+        }
+        //binding.card1.setImageResource(R.drawable.c_10_of_diamonds)
     }
 
     private fun getCardName(c: Int) : String {
@@ -33,7 +40,11 @@ class MainActivity : AppCompatActivity() {
         // Log.i("getCardName() : ", shape.toString()) // 2
 
         val number = when (c % 13) {
+            0 -> "ace"
             in 1..9 -> ((c % 13) + 1).toString()
+            10 -> "jack"
+            11 -> "queen"
+            12 -> "king"
             else -> "error"
         }
         Log.i("getCardName() : ", number.toString())
@@ -44,6 +55,6 @@ class MainActivity : AppCompatActivity() {
         //Log.i("getCardName() : ", (c / 13).toString()) // 2
         //Log.i("getCardName() : ", (c % 13).toString()) // 3
 
-        return "c_ace_of_spades"
+        return "c_${number}_of_${shape}"
     }
 }
