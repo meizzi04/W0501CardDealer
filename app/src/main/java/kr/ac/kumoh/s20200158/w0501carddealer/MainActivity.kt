@@ -15,12 +15,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnDeal.setOnClickListener{
-            val res = resources.getIdentifier(
-                getCardName(Random.nextInt(52)), // 29 : heart 4번
-                "drawable",
-                packageName
-            )
-            binding.card1.setImageResource(res)
+            val res = IntArray(5)
+            for (i in 0 until res.size) {
+                res[i] = resources.getIdentifier(
+                    getCardName(Random.nextInt(52)), // 29 : heart 4번
+                    "drawable",
+                    packageName
+                )
+            }
+
+            binding.card1.setImageResource(res[0])
+            binding.card2.setImageResource(res[1])
+            binding.card3.setImageResource(res[2])
+            binding.card4.setImageResource(res[3])
+            binding.card5.setImageResource(res[4])
         }
         //binding.card1.setImageResource(R.drawable.c_10_of_diamonds)
     }
